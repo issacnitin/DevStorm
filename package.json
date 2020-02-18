@@ -20,20 +20,6 @@
     "dist": "npm run build && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "{src,test,mocks}/**/*.{json,css,scss,md}": [
-      "prettier --config ./.prettierrc --write"
-    ],
-    "{src,test,mocks}/**/*.{js,ts,tsx}": [
-      "prettier --config ./.prettierrc --write",
-      "eslint --ext=jsx,js,ts,tsx --fix src"
-    ]
-  },
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
@@ -144,6 +130,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "sudo-prompt": "^9.1.1"
   }
 }
