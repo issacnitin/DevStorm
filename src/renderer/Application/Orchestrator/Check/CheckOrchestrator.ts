@@ -1,16 +1,17 @@
 import { ProgramDefinitions } from "../../Program/ProgramDefinitions";
+import { Nginx } from "../../Program/Nginx";
 import { Platform } from "../../Platform";
 import { ProgramBase } from "../../Program/ProgramBase";
 import { OrchestratorBase } from "../OrchestratorBase";
 
-export class InstallOrchestrator extends OrchestratorBase {
+export class CheckOrchestrator extends OrchestratorBase {
 
     constructor(platform: Platform) {
         super(platform);
     }
 
-    public async install(program: ProgramDefinitions, stdout: any, stderr: any) : Promise<boolean> {
+    public async check(program: ProgramDefinitions, stdout: any, stderr: any) : Promise<boolean> {
         let orchestrator : ProgramBase = this.getProgramOrchestrator(program);
-        return await orchestrator.Install(stdout, stderr);
+        return await orchestrator.Check(stdout, stderr);
     }
 }

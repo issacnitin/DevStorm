@@ -8,12 +8,14 @@ export class Nginx extends ProgramBase {
         super(platform);
     }
 
-    async Install() : Promise<boolean> {
+    async Install(stdout: any, stderr: any) : Promise<boolean> {
         try {
             switch(this.platform) {
                 case Platform.Mac:
                     console.log("Executing shell")
-                    await this.shell.executeShell("./scripts/unix/nginx/install.sh")
+                    let v = await this.shell.executeShell("./scripts/unix/nginx/install.sh")
+                    v.stdout?.on('data', stdout);
+                    v.stderr?.on('data', stderr);
                     break;
                 case Platform.Windows:
                     break;
@@ -23,6 +25,24 @@ export class Nginx extends ProgramBase {
             return true;
         } catch (error) {
             console.error(error)
+            return false;
+        }
+    }
+
+    async Check(stdout: any, stderr: any) : Promise<boolean> {
+        try {
+            switch(this.platform) {
+                case Platform.Mac:
+                    let v = await this.shell.executeShell("./scripts/unix/nginx/check.sh")
+                    v.stdout?.on('data', stdout);
+                    v.stderr?.on('data', stderr);
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        } catch (error) {
+            console.log(error);
             return false;
         }
     }

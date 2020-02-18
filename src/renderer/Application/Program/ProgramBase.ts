@@ -1,30 +1,34 @@
 import { Platform } from "../Platform";
-import { UnixBase } from "../Shell/UnixBase";
+import { Unix } from "../Shell/Unix";
 
 export class ProgramBase {
     platform: Platform;
-    shell: UnixBase;
+    shell: Unix;
 
     constructor(platform: Platform) {
         this.platform = platform;
         this.shell = this.getShell();
     }
 
-    public getShell() : UnixBase {
+    public getShell() : Unix {
         let options = {
             name: undefined,
             icns: undefined
         }
         switch(this.platform) {
             case Platform.Mac:
-                return new UnixBase(options);
+                return new Unix(options);
             default:
                 break
         }
-        return new UnixBase(options);
+        return new Unix(options);
     }
 
-    public async Install() : Promise<boolean> {
+    public async Install(stdout: any, stderr: any) : Promise<boolean> {
+        return false;
+    }
+
+    public async Check(stdout: any, stderr: any): Promise<boolean> {
         return false;
     }
 }
