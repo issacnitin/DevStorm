@@ -1,5 +1,4 @@
 import { Platform } from "../Platform";
-import { Shell } from "electron";
 import { ProgramBase } from "./ProgramBase";
 import * as fs from 'fs';
 

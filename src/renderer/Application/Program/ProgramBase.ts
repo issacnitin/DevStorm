@@ -24,14 +24,6 @@ export class ProgramBase {
         return new Unix(options);
     }
 
-    public async Install(stdout: any, stderr: any) : Promise<boolean> {
-        return false;
-    }
-
-    public async Check(stdout: any, stderr: any): Promise<boolean> {
-        return false;
-    }
-
     public async GenerateDockerComposeService() : Promise<Array<string>> {
         return [];
     }
