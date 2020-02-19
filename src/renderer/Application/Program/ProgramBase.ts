@@ -32,11 +32,7 @@ export class ProgramBase {
         return false;
     }
 
-    public async GenerateDockerComposeService() : Promise<string> {
-        return "";
-    }
-
-    public async ConvertToDockerCompose(data: JSON) : Promise<string> {
-        return "";
+    public async GenerateDockerComposeService() : Promise<Array<string>> {
+        return [];
     }
 }

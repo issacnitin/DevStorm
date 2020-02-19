@@ -9,8 +9,17 @@ export class DockerComposeOrchestrator extends OrchestratorBase {
         super(platform);
     }
 
-    public async GenerateDockerComposeService(program: ProgramDefinitions, stdout: any, stderr: any) : Promise<string> {
-        let orchestrator : ProgramBase = this.GetProgramOrchestrator(program);
-        return await orchestrator.GenerateDockerComposeService();
+    public async GenerateDockerComposeService(programs: Array<ProgramDefinitions>, stdout: any, stderr: any) : Promise<string> {
+        let dockerCompose: Array<string> = ["version: '3'", "services:"];
+        for(let program of programs) {
+            let orchestrator : ProgramBase = this.GetProgramOrchestrator(program);
+            let lines = await orchestrator.GenerateDockerComposeService();
+            for(let line of lines) {
+                dockerCompose.push("  " + line)
+            }
+        }
+        return dockerCompose.reduce((a, b) => {
+            return a + "\n" + b;
+        })
     }
 }

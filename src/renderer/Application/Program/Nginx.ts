@@ -9,10 +9,8 @@ export class Nginx extends ProgramBase {
         super(platform);
     }
 
-    async GenerateDockerComposeService() : Promise<string> {
-        let file = fs.readFileSync("./scripts/unix/nginx/docker-compose.json")
-        let json : JSON = JSON.parse(file.toString());
-        return this.ConvertToDockerCompose(json);
+    async GenerateDockerComposeService() : Promise<Array<string>> {
+        return fs.readFileSync("./scripts/nginx/docker-compose.yml").toString().split('\n');
     }
 
     async Install(stdout: any, stderr: any) : Promise<boolean> {

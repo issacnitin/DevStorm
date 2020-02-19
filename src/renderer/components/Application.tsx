@@ -24,7 +24,11 @@ export class Application extends React.Component<IProps, IState> {
             log: ""
         })
         let c = new DevConsole(Platform.Mac);
-        await c.InstallOrchestrator.install(ProgramDefinitions.NGINX, this.stdout, this.stderr)
+        let dockerComposeFile = await c.DockerComposeOrchestrator.GenerateDockerComposeService([ProgramDefinitions.NGINX], this.stdout, this.stderr);
+        console.log(dockerComposeFile)
+        this.setState({
+            log: dockerComposeFile
+        })
     }
 
     stdout = (data: string) => {
