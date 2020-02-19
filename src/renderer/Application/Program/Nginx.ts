@@ -1,11 +1,18 @@
 import { Platform } from "../Platform";
 import { Shell } from "electron";
 import { ProgramBase } from "./ProgramBase";
+import * as fs from 'fs';
 
 export class Nginx extends ProgramBase {
 
     constructor(platform: Platform) {
         super(platform);
+    }
+
+    async GenerateDockerComposeService() : Promise<string> {
+        let file = fs.readFileSync("./scripts/unix/nginx/docker-compose.json")
+        let json : JSON = JSON.parse(file.toString());
+        return this.ConvertToDockerCompose(json);
     }
 
     async Install(stdout: any, stderr: any) : Promise<boolean> {

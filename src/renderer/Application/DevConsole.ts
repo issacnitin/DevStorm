@@ -1,13 +1,13 @@
-import { InstallOrchestrator } from "./Orchestrator/Install/InstallOrchestrator";
+import { DockerComposeOrchestrator } from "./Orchestrator/DockerCompose/DockerComposeOrchestrator";
 import { CheckOrchestrator } from "./Orchestrator/Check/CheckOrchestrator";
 import { Platform } from "./Platform";
 
 export class DevConsole {
-    InstallOrchestrator: InstallOrchestrator;
+    DockerComposeOrchestrator: DockerComposeOrchestrator;
     CheckOrchestrator: CheckOrchestrator;
     
     constructor(platform: Platform) {
-        this.InstallOrchestrator = new InstallOrchestrator(platform);
+        this.DockerComposeOrchestrator = new DockerComposeOrchestrator(platform);
         this.CheckOrchestrator = new CheckOrchestrator(platform);
     }
 }

@@ -10,7 +10,7 @@ export class OrchestratorBase {
         this.platform = platform;
     }
 
-    public getProgramOrchestrator(program: ProgramDefinitions) : ProgramBase {
+    public GetProgramOrchestrator(program: ProgramDefinitions) : ProgramBase {
         switch(program) {
             case ProgramDefinitions.NGINX:
                 return new Nginx(this.platform);

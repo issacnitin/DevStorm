@@ -31,4 +31,12 @@ export class ProgramBase {
     public async Check(stdout: any, stderr: any): Promise<boolean> {
         return false;
     }
+
+    public async GenerateDockerComposeService() : Promise<string> {
+        return "";
+    }
+
+    public async ConvertToDockerCompose(data: JSON) : Promise<string> {
+        return "";
+    }
 }
