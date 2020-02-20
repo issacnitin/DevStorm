@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface IProps {
-    port?: number
+    ports?: number
 }
 
 interface IState {
@@ -16,7 +16,7 @@ export class Nginx extends React.Component<IProps, IState> {
     render () {
         return (
             <div>
-                PORT: <text>{this.props.port}</text>
+                PORT: <text>{this.props.ports}</text>
             </div>
         )
     }

@@ -48,17 +48,17 @@ export class Application extends React.Component<IProps, IState> {
     }
 
     loadFragments = async (e: any) => {
-        let data : Array<JSX.Element> = []
+        let jsxArray : Array<JSX.Element> = []
         let c = new DevConsole(Platform.Mac);
         let parsedDockerFile = await c.DockerComposeOrchestrator.ReadDockerCompose("docker-compose.yml");
-        console.log(parsedDockerFile)
-        for(let service in parsedDockerFile) {
+        let parsedDockerFileServices = parsedDockerFile[0].services;
+        for(let service in parsedDockerFileServices) {
             let program: ProgramDefinitions = GetProgramDefinition(service.toLowerCase());
-            let data = parsedDockerFile["service"];
-            data.push(<FragmentProvider program={program} data={data}/>)
+            let data = parsedDockerFileServices[service];
+            jsxArray.push(<FragmentProvider program={program} data={data}/>)
         }
         this.setState({
-            fragments: data
+            fragments: jsxArray
         })
     }
 
@@ -72,7 +72,7 @@ export class Application extends React.Component<IProps, IState> {
                 }
                 <button onClick={e => this.execute(e)} >Execute</button>
                 <button onClick={e => this.loadFragments(e)} >Show Fragments</button>
-                {this.state.fragments}
+                {this.state.fragments.map((a) => (a))}
             </div>
         )
     }

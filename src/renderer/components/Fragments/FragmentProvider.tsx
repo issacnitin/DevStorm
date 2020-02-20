@@ -24,7 +24,7 @@ export class FragmentProvider extends React.Component<IProps, IState> {
         switch(this.props.program) {
             case ProgramDefinitions.NGINX:
                 this.setState({
-                    jsx: <Nginx port={this.props.data.port} />
+                    jsx: <Nginx ports={this.props.data.ports} />
                 });
                 break;
             default:
