@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Electron: Debug",
+            "name": "Electron: Main",
             "protocol": "inspector",
             "sourceMaps": true,
             "outFiles": ["${workspaceFolder}/dist/**/*.js"],
@@ -29,6 +29,15 @@
             "port": 9222,
             "webRoot": "${workspaceFolder}",
             "timeout": 5000
+        }
+    ],
+    "compounds": [
+        {
+          "name": "Electron: All",
+          "configurations": [
+            "Electron: Main",
+            "Electron: Renderer App"
+          ]
         }
     ]
 }

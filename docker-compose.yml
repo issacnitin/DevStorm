@@ -8,12 +8,12 @@ services:
     - "8080:8080"
     depends_on:
     - "mongo"
-  travel: 
+  nginx: 
     build:
       context: .
       dockerfile: ./travel/Dockerfile
     ports:
-    - "8082:8082"
+      - "8082:8082"
     depends_on:
     - "mongo"
     - "redis"
@@ -29,7 +29,7 @@ services:
   redis:
     image: redis:latest
     ports:
-    - "6379:6379"
+      - "6379:6379"
     command: redis-server --requirepass iPhoneMyPh0ne!!
     logging:
       driver: "none"
