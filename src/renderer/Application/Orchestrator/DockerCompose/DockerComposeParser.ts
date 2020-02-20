@@ -7,7 +7,7 @@ export class DockerComposeParser {
         this.fileContents = fileContents;
     }
 
-    public Parse() : void {
+    public Parse() : any {
         let fileContentsArray = this.fileContents.split('\n');
         let lastLevelDeep = 0;
         let level = 0;
@@ -63,17 +63,34 @@ export class DockerComposeParser {
                     dockerComposeModal = this.pushToCommandStack(dockerComposeModal, commandStack, l[1]);
                 }
             } else { 
-                let l: Array<string> = strippedLine.split(':');
-                commandStack.push(l[0]);
+                let l: Array<string|undefined> = strippedLine.split(':').map((a) => {
+                    if(a != "") return a;
+                });
+                if(l.length == 0) {
+                    throw "Wrong formatted docker-compose file";
+                }
+                if(level == prevLevel) {
+                    commandStack.pop();
+                    commandStack.push(<string>l[0]);
+                } else if(level < prevLevel) {
+                    for(let i = level; i < prevLevel; i++) {
+                        commandStack.pop();
+                    }
+                    commandStack.push(<string>l[0]);
+                } else {
+                    commandStack.push(<string>l[0]);
+                }
+
                 if(l.length > 1) {
                     for(let i = 1; i < l.length; i++) {
-                        dockerComposeModal = this.pushToCommandStack(dockerComposeModal, commandStack, l[i])
+                        dockerComposeModal = this.pushToCommandStack(dockerComposeModal, commandStack, <string>l[i])
                     }
                 }
             }
             
             prevLevel = level;
         }
+        return dockerComposeModal;
     } 
 
     public pushToCommandStack(dockerComposeModal: any, commandStack: Array<string>, value: any, i: number = 0) : any {

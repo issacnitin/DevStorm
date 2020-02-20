@@ -3,6 +3,7 @@ import { Platform } from "../../Platform";
 import { ProgramBase } from "../../Program/ProgramBase";
 import { OrchestratorBase } from "../OrchestratorBase";
 import * as fs from "fs";
+import { DockerComposeParser } from "./DockerComposeParser";
 
 export class DockerComposeOrchestrator extends OrchestratorBase {
 
@@ -26,5 +27,8 @@ export class DockerComposeOrchestrator extends OrchestratorBase {
 
     public async ReadDockerCompose(file: string) {
         let content = fs.readFileSync(file).toString();
+        console.log(content)
+        let dockerComposeParser : DockerComposeParser = new DockerComposeParser(content);
+        return dockerComposeParser.Parse();
     }
 }

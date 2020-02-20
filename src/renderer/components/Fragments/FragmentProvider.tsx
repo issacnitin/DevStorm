@@ -1,0 +1,44 @@
+import * as React from "react";
+import { ProgramDefinitions } from "../../Application/Program/ProgramDefinitions";
+import { Nginx } from "./Nginx";
+
+interface IProps {
+    program: ProgramDefinitions;
+    data?: any
+}
+
+interface IState {
+    jsx: JSX.Element
+}
+
+export class FragmentProvider extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
+        super(props);
+        this.state = {
+            jsx: <div />
+        }
+        this.SetFragment();
+    }
+
+    public SetFragment() : void {
+        switch(this.props.program) {
+            case ProgramDefinitions.NGINX:
+                this.setState({
+                    jsx: <Nginx port={this.props.data.port} />
+                });
+                break;
+            default:
+                this.setState({
+                    jsx: <div />
+                })
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                {this.state.jsx}
+            </div>
+        )
+    }
+}

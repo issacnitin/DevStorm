@@ -7,8 +7,28 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/dist/main.js"
+            "name": "Electron: Debug",
+            "protocol": "inspector",
+            "sourceMaps": true,
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "runtimeArgs": ["--remote-debugging-port=9222", "."],
+            "outputCapture": "std",
+            "windows": {
+              "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+            },
+            "env": {
+              "ELECTRON_DISABLE_SECURITY_WARNINGS": "true",
+              "ELECTRON_IS_DEV": "1"
+            }
+        },
+        {
+            "name": "Electron: Renderer App",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}",
+            "timeout": 5000
         }
     ]
 }
