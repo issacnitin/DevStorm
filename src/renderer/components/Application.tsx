@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DevConsole } from '../Application/DevConsole';
 import { Platform } from '../Application/Platform';
 import { ProgramDefinitions, GetProgramDefinition } from '../Application/Program/ProgramDefinitions';
-import { FragmentProvider } from './Fragments/FragmentProvider';
+import { FragmentProvider } from './FragmentProvider';
 
 interface IProps {
 
@@ -66,9 +66,9 @@ export class Application extends React.Component<IProps, IState> {
                 <button onClick={e => this.execute(e)} >Execute</button>
                 <button onClick={e => this.loadFragments(e)} >Show Fragments</button>
                 {
-                    Object.entries(this.state.services).map(([key, value], index) => (
-                        <FragmentProvider program={GetProgramDefinition(key)} data={value}/>
-                    ))
+                    Object.entries(this.state.services).map(([key, value], index) => {
+                        return <FragmentProvider key={index} program={GetProgramDefinition(key)} customname={key} data={value}/>
+                    })
                 }
             </div>
         )

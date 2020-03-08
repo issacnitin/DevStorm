@@ -1,5 +1,5 @@
 export enum ProgramDefinitions {
-    NONE = "none",
+    CUSTOM = "custom",
     NGINX = "nginx"
 }
 
@@ -8,6 +8,6 @@ export function GetProgramDefinition(s: string) {
         case "nginx":
             return ProgramDefinitions.NGINX;
         default:
-            return ProgramDefinitions.NONE;
+            return ProgramDefinitions.CUSTOM;
     }
 }

@@ -27,7 +27,6 @@ export class DockerComposeOrchestrator extends OrchestratorBase {
 
     public async ReadDockerCompose(file: string) {
         let content = fs.readFileSync(file).toString();
-        console.log(content)
         let dockerComposeParser : DockerComposeParser = new DockerComposeParser(content);
         return dockerComposeParser.Parse();
     }

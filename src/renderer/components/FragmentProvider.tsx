@@ -1,9 +1,11 @@
 import * as React from "react";
-import { ProgramDefinitions } from "../../Application/Program/ProgramDefinitions";
-import { Nginx } from "./Nginx";
+import { ProgramDefinitions } from "../Application/Program/ProgramDefinitions";
+import { Nginx } from "./Fragments/Nginx";
+import { CustomService } from "./Fragments/CustomService";
 
 interface IProps {
     program: ProgramDefinitions;
+    customname?: string;
     data?: any
 }
 
@@ -21,12 +23,18 @@ export class FragmentProvider extends React.Component<IProps, IState> {
     }
 
     public SetFragment() : void {
+        console.log(this.props.data)
         switch(this.props.program) {
             case ProgramDefinitions.NGINX:
                 this.state = {
                     jsx: <Nginx ports={this.props.data.ports} />
                 };
                 break; 
+            case ProgramDefinitions.CUSTOM:
+                this.state = {
+                    jsx: <CustomService name={this.props.customname} data={this.props.data}/>
+                }
+                break;
             default:
                 this.state = {
                     jsx: <div />
