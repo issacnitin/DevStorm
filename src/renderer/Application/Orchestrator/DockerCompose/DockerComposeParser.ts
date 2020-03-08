@@ -8,7 +8,7 @@ export class DockerComposeParser {
     }
 
     public Parse() : any {
-        let parsedYaml = yaml.safeLoadAll(this.fileContents);
+        const parsedYaml = yaml.safeLoadAll(this.fileContents);
         return JSON.parse(JSON.stringify(parsedYaml));
     } 
 }

@@ -23,14 +23,15 @@ export class FragmentProvider extends React.Component<IProps, IState> {
     public SetFragment() : void {
         switch(this.props.program) {
             case ProgramDefinitions.NGINX:
-                this.setState({
+                this.state = {
                     jsx: <Nginx ports={this.props.data.ports} />
-                });
-                break;
+                };
+                break; 
             default:
-                this.setState({
+                this.state = {
                     jsx: <div />
-                })
+                };
+                break;
         }
     }
 
