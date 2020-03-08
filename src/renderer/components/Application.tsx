@@ -3,6 +3,8 @@ import { DevConsole } from '../Application/DevConsole';
 import { Platform } from '../Application/Platform';
 import { ProgramDefinitions, GetProgramDefinition } from '../Application/Program/ProgramDefinitions';
 import { FragmentProvider } from './FragmentProvider';
+import { Button } from "react-bootstrap";
+import { ipcRenderer } from 'electron';
 
 interface IProps {
 
@@ -55,6 +57,11 @@ export class Application extends React.Component<IProps, IState> {
         })
     }
 
+    onOpenFileDialogClick = (e: any) => {
+        let retval = ipcRenderer.send('synchronous-message', "asd")
+        console.log(retval)
+    }
+
     render() {
         return (
             <div>
@@ -63,8 +70,9 @@ export class Application extends React.Component<IProps, IState> {
                         <text key={i}>{line}<br /></text>
                     ))
                 }
-                <button onClick={e => this.execute(e)} >Execute</button>
-                <button onClick={e => this.loadFragments(e)} >Show Fragments</button>
+                <Button onClick={(e: any) => this.onOpenFileDialogClick(e)} > Open File</Button>
+                <Button onClick={(e: any) => this.execute(e)} >Execute</Button>
+                <Button onClick={(e: any) => this.loadFragments(e)} >Show Fragments</Button>
                 {
                     Object.entries(this.state.services).map(([key, value], index) => {
                         return <FragmentProvider key={index} program={GetProgramDefinition(key)} customname={key} data={value}/>

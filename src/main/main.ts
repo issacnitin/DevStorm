@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, IpcMessageEvent } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -13,6 +13,18 @@ const installExtensions = async () => {
         extensions.map(name => installer.default(installer[name], forceDownload))
     ).catch(console.log); // eslint-disable-line no-console
 };
+
+const onAsyncMessageHandler = function(event: IpcMessageEvent, arg1: any): void {
+    event.returnValue = openFilePicker()
+}
+
+ipcMain.on('synchronous-message', onAsyncMessageHandler)
+
+const openFilePicker = () : string => {
+    let d = dialog.showOpenDialog({ properties: ['openFile'] })
+    console.log(d)
+    return d[0]
+}
 
 const createWindow = async () => {
     if (process.env.NODE_ENV !== 'production') {
