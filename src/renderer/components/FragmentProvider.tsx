@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ProgramDefinitions } from "../Application/Program/ProgramDefinitions";
+import { ProgramDefinitions } from "../../main/Application/Program/ProgramDefinitions";
 import { Nginx } from "./Fragments/Nginx";
 import { CustomService } from "./Fragments/CustomService";
 

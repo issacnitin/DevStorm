@@ -1,6 +1,8 @@
-import { app, BrowserWindow, dialog, ipcMain, IpcMessageEvent } from 'electron';
+import { app, BrowserWindow, ipcMain, IpcMessageEvent } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { store } from './Redux/ConfigureStore';
+import { startOpenDockerComposeFile } from './Redux/System/SystemActions';
 
 let win: BrowserWindow | null;
 
@@ -14,17 +16,12 @@ const installExtensions = async () => {
     ).catch(console.log); // eslint-disable-line no-console
 };
 
-const onAsyncMessageHandler = function(event: IpcMessageEvent, arg1: any): void {
-    event.returnValue = openFilePicker()
+const openDockerComposeFile = function(event: IpcMessageEvent): void {
+    store.dispatch(startOpenDockerComposeFile())
+    event.returnValue = 0;
 }
 
-ipcMain.on('synchronous-message', onAsyncMessageHandler)
-
-const openFilePicker = () : string => {
-    let d = dialog.showOpenDialog({ properties: ['openFile'] })
-    console.log(d)
-    return d[0]
-}
+ipcMain.on('syncOpenDockerCompose', openDockerComposeFile)
 
 const createWindow = async () => {
     if (process.env.NODE_ENV !== 'production') {

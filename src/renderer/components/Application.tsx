@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { DevConsole } from '../Application/DevConsole';
-import { Platform } from '../Application/Platform';
-import { ProgramDefinitions, GetProgramDefinition } from '../Application/Program/ProgramDefinitions';
+import { DevConsole } from '../../main/Application/DevConsole';
+import { Platform } from '../../main/Application/Platform';
+import { ProgramDefinitions, GetProgramDefinition } from '../../main/Application/Program/ProgramDefinitions';
 import { FragmentProvider } from './FragmentProvider';
 import { Button } from "react-bootstrap";
-import { ipcRenderer } from 'electron';
+import { store } from '../Redux/ConfigureStore';
+import { startOpenDockerComposeFile } from '../Redux/System/SystemActions';
 
 interface IProps {
 
@@ -58,8 +59,7 @@ export class Application extends React.Component<IProps, IState> {
     }
 
     onOpenFileDialogClick = (e: any) => {
-        let retval = ipcRenderer.send('synchronous-message', "asd")
-        console.log(retval)
+        store.dispatch(startOpenDockerComposeFile());
     }
 
     render() {

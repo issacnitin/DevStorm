@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button } from "react-bootstrap";
-import { Unix } from "../../Application/Shell/Unix";
-import { SudoOptions } from "../../Application/Shell/ShellBase";
+import { Unix } from "../../../main/Application/Shell/Unix";
+import { SudoOptions } from "../../../main/Application/Shell/ShellBase";
 
 interface IProps {
     name?: string
